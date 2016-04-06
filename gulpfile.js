@@ -8,7 +8,7 @@ var files =['index.js', 'lib/**/*.js', 'test/**/*.js','gulpfile.js'];
 gulp.task('mocha', function(){
   return gulp.src(['./test/**/*test.js'], { read : false })
   .pipe(mocha({
-    reporter:'landing'
+    reporter:'nyan'
   }))
   .on('error', gutil.log);
 });
@@ -17,11 +17,21 @@ gulp.task('lint:test', function(){
   return gulp.src('lint:test', ()=> {
     return gulp.src('./test/**/*test.js')
     .pipe(eslint({
+      useEslintrc: false,
+      warnFileIgnored:true,
       rules:{
-        'indent':['error', 2]
+        'indent':['error', 2],
+        'semi':1,
+        'quotes':[1, 'single']
+      },
+      env:{
+        'browser':true,
+        'jquery':true,
+        'es6': true,
+        'node':true
       },
       envs:[
-        'mocha'
+        'mocha',
       ]
     }));
   });
@@ -30,16 +40,26 @@ gulp.task('lint:test', function(){
 gulp.task('lint:nontest', ()=>{
   return gulp.src(files)
   .pipe(eslint({
+    useEslintrc: false,
+    warnFileIgnored:true,
     rules:{
-      'indent':['error', 2]
-    }
+      'semi':1,
+      'indent':['error', 2],
+      'quotes':[1, 'single']
+    },
+    env:{
+      'browser':true,
+      'jquery':true,
+      'es6': true,
+      'node':true
+    },
   }))
   .pipe(eslint.format());
 });
 
 
 
-gulp.task('watch-files', function(){
+gulp.task('watch-files',['mocha'], function(){
   gulp.watch(['lib/**', 'test/**'],['mocha']);
   gulp.watch(['lib/**', 'test/**'],['lint:test']);
   gulp.watch(['lib/**', 'test/**'],['lint:nontest']);
