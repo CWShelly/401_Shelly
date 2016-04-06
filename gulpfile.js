@@ -48,29 +48,3 @@ gulp.task('watch-files', function(){
 
 gulp.task('index', ['watch-files']);
 gulp.task('default', ['index']);
-//
-// gulp.task('lint:test', ()=>{
-//   return gulp.src('./test/**/*test.js')
-//   .pipe(eslint({
-//     rules:{
-//       'indent': ['error', 2]
-//     },
-//     envs:[
-//       'mocha'
-//     ]
-//   }))
-//   .pipe(eslint.format());
-// });
-//
-// gulp.task('lint:nontest', ()=>{
-//   return gulp.src(files)
-//   .pipe(eslint({
-//     rules:{
-//       'indent': ['error', 2]
-//     }
-//   }))
-//   .pipe(eslint.format());
-// });
-//
-// gulp.task('lint', ['lint:nontest', 'lint:test']);
-// gulp.task('default', ['lint']);
